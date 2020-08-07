@@ -1,11 +1,11 @@
 from flask import Flask, request
-from main import main
+from process_image import process
 
 app = Flask(__name__)
 
 @app.route('/', methods = ['POST'])
 def process_image():
-    return main(request.get_json()["data"])
+    return process(request.get_json()["data"])
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host="0.0.0.0")

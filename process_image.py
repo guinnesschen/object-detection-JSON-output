@@ -1,6 +1,6 @@
 import time
 import base64
-import json
+from flask import json
 import os
 import cv2
 import numpy as np
@@ -15,7 +15,7 @@ with open(LABELS, 'r') as f:
 
 net = cv2.dnn.readNetFromDarknet(CONFIG, WEIGHTS)
 
-def main(encodedImage):
+def process(encodedImage):
     image_64_decode = base64.decodebytes(encodedImage.encode('utf-8'))
 
     with open('image.png', 'wb') as image_result:
@@ -48,6 +48,6 @@ def main(encodedImage):
     result = []
     for class_id in class_ids:
         result.append(labels[class_id])
-    return json.dumps(result)
+    return json.jsonify(result)
 
 
